@@ -42,10 +42,10 @@
         for (let item of matches) {
             let formatted = [];
 
-            formatted.push(`${chalk.gray("Name:")} ${item.name} (${chalk.blueBright(item.url)})`);
-            formatted.push(`${chalk.gray("Supported Versions:")} ${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
+            formatted.push(`${chalk.gray("Name:")} ${chalk.whiteBright(item.name + " (")}${chalk.blueBright(item.url)}${chalk.whiteBright(")")}`);
+            formatted.push(`${chalk.gray("Supported Versions:")} ${chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`)}`);
 
-            formatted.push(`${chalk.gray("Platforms:")} ${item.platforms.join(", ")}`);
+            formatted.push(`${chalk.gray("Platforms:")} ${chalk.whiteBright(item.platforms.join(", "))}`);
 
             formatted.push(chalk.yellow(`*${stripTags(item.caveats)}`));
 
