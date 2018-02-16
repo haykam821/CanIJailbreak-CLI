@@ -8,6 +8,12 @@
     const fixVersion = require("normalize-version");
     const chalk = require("chalk");
 
+    const platformFromAPI = {
+        "Windows": "win32",
+        "macOS": "darwin",
+        "Linux": "linux"
+    };
+
     program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
     program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
 
@@ -43,11 +49,20 @@
 
         for (let item of matches) {
             let formatted = [];
+            let colorPlatforms = [];
+
+            for (let platform of item.platforms) {
+                if (platformFromAPI[platform] === process.platform) {
+                    colorPlatforms.push(chalk.greenBright(platform));
+                } else {
+                    colorPlatforms.push(chalk.redBright(platform));
+                }
+            }
 
             formatted.push(`${chalk.gray("Name:")} ${chalk.whiteBright(item.name + " (")}${chalk.blueBright(item.url)}${chalk.whiteBright(")")}`);
             formatted.push(`${chalk.gray("Supported Versions:")} ${chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`)}`);
 
-            formatted.push(`${chalk.gray("Platforms:")} ${chalk.whiteBright(item.platforms.join(", "))}`);
+            formatted.push(`${chalk.gray("Platforms:")} ${colorPlatforms.join(chalk.whiteBright(", "))}`);
 
             formatted.push(chalk.yellow(`*${stripTags(item.caveats)}`));
 
