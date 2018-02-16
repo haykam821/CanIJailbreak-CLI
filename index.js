@@ -5,6 +5,7 @@
     const semver = require("semver");
     const request = require("request-promise");
     const stripTags = require("striptags");
+    const fixVersion = require("normalize-version");
 
     const output = await request({
         method: 'GET',
@@ -19,14 +20,14 @@
 
     async function checkJailbreak(args) {
         const matches = output.jailbreaks.filter(function (value) {
-            return semver.satisfies(args.os, `${value.ios.start} - ${value.ios.end}`) && value.jailbroken
+            return semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`) && value.jailbroken
         });
 
         for (let item of matches) {
             let formatted = [];
 
             formatted.push(`Name: ${item.name} (${item.url})`);
-            formatted.push(`Supported Versions: ${item.ios.start} — ${item.ios.end}`);
+            formatted.push(`Supported Versions: ${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
 
             formatted.push(`Platforms: ${item.platforms.join()}`);
 

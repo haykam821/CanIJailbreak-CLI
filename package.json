@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/haykam821/CanIJailbreak-CLI#readme",
   "dependencies": {
+    "normalize-version": "^1.0.5",
     "request-promise": "^4.2.2",
     "semver": "^5.5.0",
     "striptags": "^3.1.1",
