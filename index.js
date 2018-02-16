@@ -88,7 +88,7 @@
             formatted.push(chalk.gray("Supported Versions: ") + versions);
             formatted.push(chalk.gray("Platforms: ") + platforms);
 
-            if (item.caveats) {
+            if (item.caveats && !args.simple) {
                 formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
             }
 
