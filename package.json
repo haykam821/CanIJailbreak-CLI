@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/haykam821/CanIJailbreak-CLI#readme",
   "dependencies": {
+    "semver": "^5.5.0",
     "yargs": "^11.0.0"
   }
 }

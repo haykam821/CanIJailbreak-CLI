@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const program = require("yargs");
+const semver = require("semver");
 
 program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
 program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
