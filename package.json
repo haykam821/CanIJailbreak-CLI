@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/haykam821/CanIJailbreak-CLI/issues"
   },
-  "homepage": "https://github.com/haykam821/CanIJailbreak-CLI#readme"
+  "homepage": "https://github.com/haykam821/CanIJailbreak-CLI#readme",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
 }
