@@ -6,6 +6,7 @@
     const request = require("request-promise");
     const stripTags = require("striptags");
     const fixVersion = require("normalize-version");
+    const chalk = require("chalk");
 
     program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
     program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
