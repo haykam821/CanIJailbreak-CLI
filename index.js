@@ -19,7 +19,20 @@
         "linux": "Linux"
     };
 
-    program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
+    program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {
+        "simple": {
+            description: "Hides tool version and merges URL with name.",
+            alias: ["s"],
+            type: "boolean",
+            default: false
+        },
+        "first": {
+            description: "Gets only the first matching result.",
+            alias: ["f"],
+            type: "boolean",
+            default: false
+        }
+    }, checkJailbreak);
     program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
 
     program.options({
@@ -33,18 +46,6 @@
             description: "The URL to get the jailbreak information from.",
             type: "string",
             default: "https://canijailbreak.com/jailbreaks.json"
-        },
-        "simple": {
-            description: "Hides tool version and merges URL with name.",
-            alias: ["s"],
-            type: "boolean",
-            default: false
-        },
-        "first": {
-            description: "Gets only the first matching result.",
-            alias: ["f"],
-            type: "boolean",
-            default: false
         }
     });
 
