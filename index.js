@@ -4,6 +4,7 @@
     const program = require("yargs");
     const semver = require("semver");
     const request = require("request-promise");
+    const stripTags = require("striptags");
 
     const output = await request({
         method: 'GET',
@@ -20,6 +21,17 @@
         const matches = output.jailbreaks.filter(function (value) {
             return semver.satisfies(args.os, `${value.ios.start} - ${value.ios.end}`)
         });
+
+        for (let item of matches) {
+            let formatted = [];
+
+            formatted.push(`Name: ${item.name}`);
+            formatted.push(`Supported Versions: ${item.ios.start} — ${item.ios.end}`);
+
+            formatted.push(`*${stripTags(item.caveats)}`);
+
+            console.log(formatted.join("\n"));
+        }
     };
     async function checkIfJailbreakable(args) {
         console.log(args);
