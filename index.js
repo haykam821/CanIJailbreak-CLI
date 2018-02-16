@@ -101,6 +101,8 @@
     };
 
     async function getMatches(args) {
+        const ios = fixVersion(args.os, 3);
+
         const output = await request({
             method: 'GET',
             url: args.url,
@@ -108,7 +110,7 @@
         });
 
         const matches = output.jailbreaks.filter(function (value) {
-            let satisfies = semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`);
+            let satisfies = semver.satisfies(ios, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`);
             let compatible = args.compat ? value.platforms.includes(apiFromPlatform[process.platform]) || value.platforms.includes("iOS") : true;
 
             return satisfies && compatible && value.jailbroken;
