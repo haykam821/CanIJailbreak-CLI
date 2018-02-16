@@ -19,7 +19,7 @@
         "linux": "Linux"
     };
 
-    program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {
+    program.command("info [os]", "Checks how to jailbreak a version.", {
         "simple": {
             description: "Hides tool version and merges URL with name.",
             alias: ["s"],
