@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const asyncRequire = require("async-require");
+const asyncRequire = require("require-load");
 
 (async function() {
     const program = await asyncRequire("yargs");

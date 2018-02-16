@@ -27,12 +27,12 @@
     "async-require": "^1.2.2",
     "chalk": "^2.3.1",
     "normalize-version": "^1.0.5",
-    "request-promise": "^4.2.2",
+    "require-load": "^2.2.0",
     "semver": "^5.5.0",
     "striptags": "^3.1.1",
     "yargs": "^11.0.0"
   },
-	"bin": {
+  "bin": {
     "canijb": "index.js",
     "cijb": "index.js",
     "canijailbreak": "index.js"
