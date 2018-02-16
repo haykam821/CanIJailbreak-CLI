@@ -39,6 +39,12 @@
             alias: ["s"],
             type: "boolean",
             default: false
+        },
+        "first": {
+            description: "Gets only the first matching result.",
+            alias: ["f"],
+            type: "boolean",
+            default: false
         }
     });
 
@@ -58,6 +64,8 @@
 
             return satisfies && compatible && value.jailbroken;
         });
+
+        matches.length = args.first ? 1 : matches.length;
 
         console.log("");
 
