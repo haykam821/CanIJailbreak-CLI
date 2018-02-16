@@ -69,7 +69,15 @@
             let versions = chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
             let platforms = colorPlatforms.join(chalk.whiteBright(", "));
 
-            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name) + `${chalk.whiteBright(" (")}${chalk.blueBright(item.url)}${chalk.whiteBright(")")}`);
+            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name));
+
+            if (item.version) {
+                formatted.push(chalk.gray("Version: ") + chalk.whiteBright(item.version));
+            }
+            if (item.url) {
+                formatted.push(chalk.gray("URL: ") + chalk.blueBright.underline(item.url));
+            }
+
             formatted.push(chalk.gray("Supported Versions: ") + versions);
             formatted.push(chalk.gray("Platforms: ") + platforms);
 
