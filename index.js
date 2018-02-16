@@ -39,6 +39,8 @@
             return semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`) && value.jailbroken
         });
 
+        console.log("");
+
         for (let item of matches) {
             let formatted = [];
 
@@ -48,6 +50,8 @@
             formatted.push(`${chalk.gray("Platforms:")} ${chalk.whiteBright(item.platforms.join(", "))}`);
 
             formatted.push(chalk.yellow(`*${stripTags(item.caveats)}`));
+
+            formatted.push("");
 
             console.log(formatted.join("\n"));
         }
