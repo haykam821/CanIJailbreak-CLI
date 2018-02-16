@@ -73,7 +73,7 @@
             formatted.push(`${chalk.gray("Platforms:")} ${colorPlatforms.join(chalk.whiteBright(", "))}`);
 
             if (item.caveats) {
-                formatted.push(chalk.yellow(`*${stripTags(item.caveats)}`));
+                formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
             }
 
             formatted.push("");
