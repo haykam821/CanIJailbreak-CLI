@@ -48,7 +48,7 @@
 
         const matches = output.jailbreaks.filter(function (value) {
             let satisfies = semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`);
-            let compatible = args.compat ? value.platforms.includes(apiFromPlatform[process.platform]) : true;
+            let compatible = args.compat ? value.platforms.includes(apiFromPlatform[process.platform]) || value.platforms.includes("iOS") : true;
 
             return satisfies && compatible && value.jailbroken;
         });
@@ -60,7 +60,7 @@
             let colorPlatforms = [];
 
             for (let platform of item.platforms) {
-                if (platformFromAPI[platform] === process.platform) {
+                if (platformFromAPI[platform] === process.platform || platform === "iOS") {
                     colorPlatforms.push(chalk.greenBright(platform));
                 } else {
                     colorPlatforms.push(chalk.redBright(platform));
