@@ -7,16 +7,31 @@
     const stripTags = require("striptags");
     const fixVersion = require("normalize-version");
 
-    const output = await request({
-        method: 'GET',
-        url: 'https://canijailbreak.com/jailbreaks.json',
-        json: true
-    });
-
     program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
     program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
+
+    program.options({
+        "compat": {
+            description: "Ignore jailbreaks that don't support the current OS.",
+            alias: ["c", "compatible"],
+            type: "boolean",
+            default: true
+        },
+        "url": {
+            description: "The URL to get the jailbreak information from.",
+            type: "string",
+            default: "https://canijailbreak.com/jailbreaks.json"
+        }
+    });
+
     program.help();
     program.argv;
+
+    const output = await request({
+        method: 'GET',
+        url: yargs.url,
+        json: true
+    });
 
     async function checkJailbreak(args) {
         const matches = output.jailbreaks.filter(function (value) {
@@ -29,7 +44,7 @@
             formatted.push(`Name: ${item.name} (${item.url})`);
             formatted.push(`Supported Versions: ${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
 
-            formatted.push(`Platforms: ${item.platforms.join()}`);
+            formatted.push(`Platforms: ${item.platforms.join(", ")}`);
 
             formatted.push(`*${stripTags(item.caveats)}`);
 
