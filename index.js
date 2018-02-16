@@ -33,6 +33,12 @@
             description: "The URL to get the jailbreak information from.",
             type: "string",
             default: "https://canijailbreak.com/jailbreaks.json"
+        },
+        "simple": {
+            description: "Hides tool version and merges URL with name.",
+            alias: ["s"],
+            type: "boolean",
+            default: false
         }
     });
 
@@ -68,13 +74,14 @@
             }
             let versions = chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
             let platforms = colorPlatforms.join(chalk.whiteBright(", "));
+            let url = !args.simple || !item.url ? "" : chalk.whiteBright(` (${chalk.blueBright.underline(item.url)})`);
 
-            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name));
+            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name) + url);
 
-            if (item.version) {
+            if (item.version && !args.simple) {
                 formatted.push(chalk.gray("Version: ") + chalk.whiteBright(item.version));
             }
-            if (item.url) {
+            if (item.url && !args.simple) {
                 formatted.push(chalk.gray("URL: ") + chalk.blueBright.underline(item.url));
             }
 
