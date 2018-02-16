@@ -31,7 +31,7 @@
     async function checkJailbreak(args) {
         const output = await request({
             method: 'GET',
-            url: yargs.url,
+            url: args.url,
             json: true
         });
 
@@ -55,7 +55,7 @@
     async function checkIfJailbreakable(args) {
         const output = await request({
             method: 'GET',
-            url: yargs.url,
+            url: args.url,
             json: true
         });
     };
