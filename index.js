@@ -28,13 +28,13 @@
     program.help();
     program.argv;
 
-    const output = await request({
-        method: 'GET',
-        url: yargs.url,
-        json: true
-    });
-
     async function checkJailbreak(args) {
+        const output = await request({
+            method: 'GET',
+            url: yargs.url,
+            json: true
+        });
+
         const matches = output.jailbreaks.filter(function (value) {
             return semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`) && value.jailbroken
         });
@@ -47,12 +47,16 @@
 
             formatted.push(`Platforms: ${item.platforms.join(", ")}`);
 
-            formatted.push(`*${stripTags(item.caveats)}`);
+            formatted.push(chalk.yellow(`*${stripTags(item.caveats)}`));
 
             console.log(formatted.join("\n"));
         }
     };
     async function checkIfJailbreakable(args) {
-        console.log(args);
+        const output = await request({
+            method: 'GET',
+            url: yargs.url,
+            json: true
+        });
     };
 })();
