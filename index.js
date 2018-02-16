@@ -21,7 +21,7 @@ const asyncRequire = require("require-load");
         "linux": "Linux"
     };
 
-    program.command("info [os]", "Checks how to jailbreak a version.", {
+    program.command("info <os>", "Checks how to jailbreak a version.", {
         "simple": {
             description: "Hides tool version and merges URL with name.",
             alias: ["s"],
@@ -35,7 +35,7 @@ const asyncRequire = require("require-load");
             default: false
         }
     }, checkJailbreak);
-    program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
+    program.command("exists <os>", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
 
     program.options({
         "compat": {
