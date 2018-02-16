@@ -53,18 +53,7 @@
     program.argv;
 
     async function checkJailbreak(args) {
-        const output = await request({
-            method: 'GET',
-            url: args.url,
-            json: true
-        });
-
-        const matches = output.jailbreaks.filter(function (value) {
-            let satisfies = semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`);
-            let compatible = args.compat ? value.platforms.includes(apiFromPlatform[process.platform]) || value.platforms.includes("iOS") : true;
-
-            return satisfies && compatible && value.jailbroken;
-        });
+        const matches = await getMatches(args);
 
         matches.length = args.first ? 1 : matches.length;
 
@@ -107,6 +96,11 @@
         }
     };
     async function checkIfJailbreakable(args) {
+        const matches = await getMatches(args);
+        console.log(matches.length > 0);
+    };
+
+    async function getMatches(args) {
         const output = await request({
             method: 'GET',
             url: args.url,
@@ -120,6 +114,6 @@
             return satisfies && compatible && value.jailbroken;
         });
 
-        console.log(matches.length > 0);
-    };
+        return matches;
+    }
 })();
