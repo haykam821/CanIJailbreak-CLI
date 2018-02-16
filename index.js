@@ -19,7 +19,7 @@
 
     async function checkJailbreak(args) {
         const matches = output.jailbreaks.filter(function (value) {
-            return semver.satisfies(args.os, `${value.ios.start} - ${value.ios.end}`)
+            return semver.satisfies(args.os, `${value.ios.start} - ${value.ios.end}`) && value.jailbreakable
         });
 
         for (let item of matches) {
