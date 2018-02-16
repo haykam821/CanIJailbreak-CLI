@@ -25,8 +25,10 @@
         for (let item of matches) {
             let formatted = [];
 
-            formatted.push(`Name: ${item.name}`);
+            formatted.push(`Name: ${item.name} (${item.url})`);
             formatted.push(`Supported Versions: ${item.ios.start} — ${item.ios.end}`);
+
+            formatted.push(`Platforms: ${item.platforms.join()}`);
 
             formatted.push(`*${stripTags(item.caveats)}`);
 
