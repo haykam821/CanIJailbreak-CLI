@@ -13,6 +13,11 @@
         "macOS": "darwin",
         "Linux": "linux"
     };
+    const apiFromPlatform = {
+        "win32": "Windows",
+        "darwin": "macOS",
+        "linux": "Linux"
+    };
 
     program.command(["how [os]", "howto [os]"], "Checks how to jailbreak a version.", {}, checkJailbreak);
     program.command("exists [os]", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
@@ -42,7 +47,10 @@
         });
 
         const matches = output.jailbreaks.filter(function (value) {
-            return semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`) && value.jailbroken
+            let satisfies = semver.satisfies(args.os, `${fixVersion(value.ios.start, 3)} - ${fixVersion(value.ios.end, 3)}`);
+            let compatible = args.compat ? value.platforms.includes(apiFromPlatform[process.platform]) : true;
+
+            return satisfies && compatible && value.jailbroken;
         });
 
         console.log("");
