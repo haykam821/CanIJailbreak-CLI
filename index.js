@@ -66,11 +66,12 @@
                     colorPlatforms.push(chalk.redBright(platform));
                 }
             }
+            let versions = chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
+            let platforms = colorPlatforms.join(chalk.whiteBright(", "));
 
-            formatted.push(`${chalk.gray("Name:")} ${chalk.whiteBright(item.name + " (")}${chalk.blueBright(item.url)}${chalk.whiteBright(")")}`);
-            formatted.push(`${chalk.gray("Supported Versions:")} ${chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`)}`);
-
-            formatted.push(`${chalk.gray("Platforms:")} ${colorPlatforms.join(chalk.whiteBright(", "))}`);
+            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name) + `${chalk.whiteBright(" (")}${chalk.blueBright(item.url)}${chalk.whiteBright(")")}`);
+            formatted.push(chalk.gray("Supported Versions: ") + versions);
+            formatted.push(chalk.gray("Platforms: ") + platforms);
 
             if (item.caveats) {
                 formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
