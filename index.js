@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
-const asyncRequire = require("require-load");
-
 (async function() {
-    const program = await asyncRequire("yargs");
-    const semver = await asyncRequire("semver");
-    const request = await asyncRequire("request-promise");
-    const stripTags = await asyncRequire("striptags");
-    const fixVersion = await asyncRequire("normalize-version");
-    const chalk = await asyncRequire("chalk");
+    const program = require("yargs");
+    const semver = require("semver");
+    const request = require("request-promise");
+    const stripTags = require("striptags");
+    const fixVersion = require("normalize-version");
+    const chalk = require("chalk");
 
     const platformFromAPI = {
         "Windows": "win32",
