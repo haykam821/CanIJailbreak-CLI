@@ -57,7 +57,7 @@
 
         matches.length = args.first ? 1 : matches.length;
 
-        console.log("");
+        process.stdout.write("");
 
         for (let item of matches) {
             let formatted = [];
@@ -92,12 +92,12 @@
 
             formatted.push("");
 
-            console.log(formatted.join("\n"));
+            process.stdout.write(formatted.join("\n"));
         }
     };
     async function checkIfJailbreakable(args) {
         const matches = await getMatches(args);
-        console.log(matches.length > 0);
+        process.stdout.write(matches.length > 0);
     };
 
     async function getMatches(args) {
