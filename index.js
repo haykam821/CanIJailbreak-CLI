@@ -57,7 +57,7 @@
 
         matches.length = args.first ? 1 : matches.length;
 
-        process.stdout.write("");
+        process.stdout.write("\n");
 
         for (let item of matches) {
             let formatted = [];
@@ -90,7 +90,7 @@
                 formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
             }
 
-            formatted.push("");
+            formatted.push("\n");
 
             process.stdout.write(formatted.join("\n"));
         }
