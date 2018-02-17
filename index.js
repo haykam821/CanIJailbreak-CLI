@@ -3,7 +3,7 @@
 (async function() {
     const program = require("yargs");
     const semver = require("semver");
-    const request = require("request-promise");
+    const request = require("request-promise-native");
     const stripTags = require("striptags");
     const fixVersion = require("normalize-version");
     const chalk = require("chalk");
