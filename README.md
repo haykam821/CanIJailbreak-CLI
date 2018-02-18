@@ -2,7 +2,11 @@
 
 This command-line tool is extremely easy to install. Just make sure you have `npm` installed and run:
 
-    git://github.com/haykam821/CanIJailbreak-CLI.git#latest
+    npm install git://github.com/haykam821/CanIJailbreak-CLI.git -g
+
+Alternatively, install via `yarn` (untested):
+
+    yarn global add https://github.com/haykam821/CanIJailbreak-CLI.git
 
 Afterwards, you can access the command-line tool.
 
