@@ -31,6 +31,11 @@
             alias: ["f"],
             type: "boolean",
             default: false
+        },
+        "json": {
+            description: "Outputs matching JSON instead of the formatted input.",
+            type: "boolean",
+            default: false
         }
     }, checkJailbreak);
     program.command("exists <os>", "Checks if a version is jailbreakable.", {}, checkIfJailbreakable);
@@ -59,40 +64,45 @@
 
         process.stdout.write("\n");
 
-        for (let item of matches) {
-            let formatted = [];
-            let colorPlatforms = [];
+        if (args.json) {
+            process.stdout.write(JSON.stringify(matches, null, 2));
+            process.stdout.write("\n\n");
+        } else {
+            for (let item of matches) {
+                let formatted = [];
+                let colorPlatforms = [];
 
-            for (let platform of item.platforms) {
-                if (platformFromAPI[platform] === process.platform || platform === "iOS") {
-                    colorPlatforms.push(chalk.greenBright(platform));
-                } else {
-                    colorPlatforms.push(chalk.redBright(platform));
+                for (let platform of item.platforms) {
+                    if (platformFromAPI[platform] === process.platform || platform === "iOS") {
+                        colorPlatforms.push(chalk.greenBright(platform));
+                    } else {
+                        colorPlatforms.push(chalk.redBright(platform));
+                    }
                 }
+                let versions = chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
+                let platforms = colorPlatforms.join(chalk.whiteBright(", "));
+                let url = !args.simple || !item.url ? "" : chalk.whiteBright(` (${chalk.blueBright.underline(item.url)})`);
+
+                formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name) + url);
+
+                if (item.version && !args.simple) {
+                    formatted.push(chalk.gray("Version: ") + chalk.whiteBright(item.version));
+                }
+                if (item.url && !args.simple) {
+                    formatted.push(chalk.gray("URL: ") + chalk.blueBright.underline(item.url));
+                }
+
+                formatted.push(chalk.gray("Supported Versions: ") + versions);
+                formatted.push(chalk.gray("Platforms: ") + platforms);
+
+                if (item.caveats && !args.simple) {
+                    formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
+                }
+
+                formatted.push("\n");
+
+                process.stdout.write(formatted.join("\n"));
             }
-            let versions = chalk.whiteBright(`${fixVersion(item.ios.start, 3)} — ${fixVersion(item.ios.end, 3)}`);
-            let platforms = colorPlatforms.join(chalk.whiteBright(", "));
-            let url = !args.simple || !item.url ? "" : chalk.whiteBright(` (${chalk.blueBright.underline(item.url)})`);
-
-            formatted.push(chalk.gray("Name: ") + chalk.whiteBright(item.name) + url);
-
-            if (item.version && !args.simple) {
-                formatted.push(chalk.gray("Version: ") + chalk.whiteBright(item.version));
-            }
-            if (item.url && !args.simple) {
-                formatted.push(chalk.gray("URL: ") + chalk.blueBright.underline(item.url));
-            }
-
-            formatted.push(chalk.gray("Supported Versions: ") + versions);
-            formatted.push(chalk.gray("Platforms: ") + platforms);
-
-            if (item.caveats && !args.simple) {
-                formatted.push(chalk.yellow(`* ${stripTags(item.caveats)}`));
-            }
-
-            formatted.push("\n");
-
-            process.stdout.write(formatted.join("\n"));
         }
     };
     async function checkIfJailbreakable(args) {
