@@ -1,3 +1,7 @@
+# CanIJailbreak CLI
+
+A CLI tool to access canijailbreak.com.
+
 ## Installation
 
 This command-line tool is extremely easy to install. Just make sure you have `npm` installed and run:
